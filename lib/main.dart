@@ -30,17 +30,31 @@ class MyApp extends StatelessWidget {
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
   
-  
-
   @override 
   WelcomePageState createState() => WelcomePageState();
 }
 
-class WelcomePageState extends State<WelcomePage> {
+class WelcomePageState extends State<WelcomePage> with SingleTickerProviderStateMixin {
+
+  double _buttonOpacity = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // this will start the fade in for the start button
+
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        _buttonOpacity = 1.0;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Center(child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [AnimatedTextKit(
           animatedTexts: [
@@ -50,13 +64,24 @@ class WelcomePageState extends State<WelcomePage> {
                 fontSize: 32.0,
                 fontWeight: FontWeight.bold
                 ),
-              )
+              ),
             ],
           ),
 
-
+          const SizedBox(height: 20.0),
+          AnimatedOpacity(
+            opacity: _buttonOpacity, 
+            duration: const Duration(seconds: 1),
+            child: ElevatedButton(
+              onPressed: () {
+                // Leads you to the next screen
+              },
+              child: const Text('Start')
+            )
+          )
         ]
-      )
+      ))
+      
     );
   }
 }
