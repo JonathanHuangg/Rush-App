@@ -1,5 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 // Referenced from https://www.syncfusion.com/blogs/post/dynamic-forms-in-flutter
+
+
+
 class DynamicModel {
   String controlName; // uniquely identifies field (text boxes and stuff)
   FormType formType; // reference enum
@@ -41,12 +46,8 @@ enum ValidatorType {
 
 enum FormType 
 {
-  Text,
-  Multiline, 
-  Dropdown, 
-  AutoComplete, 
-  RTE,
-  DatePicker 
+  text,
+  dropdown,
 }
 
 TextFormField getTextWidget(int index) {
@@ -92,5 +93,57 @@ TextFormField getTextWidget(int index) {
     onChanged: (text) {
       formsList[index].value = text;
     },
+  );
+}
+
+DropdownButtonFormField getDropDown(index, List<ItemModel> listItems) {
+  return DropdownButtonFormField<ItemModel>(
+    value: formsList[index].selectedItem,
+
+    // maps each itemModel in listItems to DropDownMenuItem<ItemModel> and turn to list
+    items: listItems.map<DropdownMenuItem<ItemModel>>((ItemModel value) {
+      return DropdownMenuItem<ItemModel>(
+        value: value,
+        child: Text(value.name),
+      );
+    }).toList(),
+
+    // changes when selected value in menu changes
+    // goal is to dynamically change the Fraternities dropdown when the school is selected
+    onChanged: (value) {
+      setState(() {
+        formsList[index].selectedItem = value; // gets updated on every click
+        if (formsList[index].controlName == "School") {
+          
+          // filters the frats list to get when they match the Georgia Tech tag (assuming other schools adopt)
+          var filteredFrats = frats 
+            .where((element) => value?.id == element.parentId)
+            .toList();
+          
+          // this is to remove any EXISTING fraternity list (eg: if I first select UGA and then GT)
+          if (formsList.any((element) => element.controlName == "Fraternities")) {
+            formsList[index + 1].selectedItem = null;
+            var existingitem = formsList
+              .firstWhere((element) => element.controlName == "Fraternities");
+            formsList.remove(existingitem);
+          }
+
+          if (filteredFrats.isNotEmpty) {
+            formsList.insert( 
+              index + 1,
+              DynamicModel("Fraternities", FormType.Dropdown, items: filteredFrats)
+            );
+          }
+        }
+      });
+    },
+
+    validator: (value) => value == null ? 'Field required' : null,
+    decoration: InputDecoration(
+      labelText: formsList[index].controlName,
+      border: const OutlineInputBorder( 
+        borderRadius: BorderRadius.all(Radius.circular(14.0))
+      )
+    )
   );
 }
