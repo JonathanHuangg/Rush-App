@@ -1,6 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'rusherRegistration.dart';
+import 'rusher_registration.dart';
 
 // Iphone 15 simulator
 // xcrun simctl boot 60382070-7787-4574-A898-672D761082C3
@@ -75,7 +75,10 @@ class WelcomePageState extends State<WelcomePage> with SingleTickerProviderState
             duration: const Duration(seconds: 1),
             child: ElevatedButton(
               onPressed: () {
-                // Leads you to the next screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DynamicFormPage())
+                );
               },
               child: const Text('Start')
             )
