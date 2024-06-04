@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: 2.32.0
 
   # this is for the fade in in the welcome page
   animated_text_kit: ^4.2.2
