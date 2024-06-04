@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "167156056234",
+    "project_id": "rushme-app",
+    "storage_bucket": "rushme-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167156056234:android:54f03ea037a5c515a750d3",
+        "android_client_info": {
+          "package_name": "com.example.rush_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9ERDwsJR3MJvVYD9Pn4GlnC7B1hAdDK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
