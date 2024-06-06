@@ -22,7 +22,7 @@ class TextAndCheckBoxState extends State<TextAndCheckBox> {
         MaterialState.hovered,
       };
 
-      if (states.any(interactiveStates.contains)) {
+      if (states.contains(MaterialState.pressed)) {
         return Colors.blue;
       }
       return Colors.red;
