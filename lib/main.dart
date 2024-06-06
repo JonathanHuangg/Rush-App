@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'rusher_registration.dart';
+import 'package:rush_app/widgets/admin/admin_settings_widget.dart';
+import 'screens/common/rusher_registration.dart';
+import 'widgets/admin/admin_settings_widget.dart';
 
 // Iphone 15 simulator
 // xcrun simctl boot 60382070-7787-4574-A898-672D761082C3
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const WelcomePage(),
+      home: const TextAndCheckBox(), // change this to change the screen
     );
   }
 }
