@@ -1,0 +1,34 @@
+This is just a document to explain how firestore works
+
+Firestore - flexible, scalabale noSQL cloud database
+- organized into collections and documents like folders and files
+- collection: group of documents (not data)
+- Document - record in Firestore that contains data 
+
+Relational Databases - Uses tables with rows and columns. Relationships are defined using keys
+- Schema: fixed schema
+- Scales vertically (more power)
+
+NoSQL Databases - Collections and documents, key value pairs, graphs. Related data stored together
+- Schema: no or flexible schema
+- Scales horizontally (add more servers)
+
+
+
+
+Key Components and Integration
+1) Firebase authentication
+- Use Firebase Authentication and Device ID to verify authentication
+- Role-Based Access: Help manage roles (unsure)
+
+2) Firestore Database
+- QR code + information can go to firestore database
+- Voting system data is stored in Firestore
+- Real time updates for votes and general information
+
+3) Firebase Cloud messaging
+- Notifications
+
+4) Firebase Functions
+- Serverless functions - signup going from QR code to update
+- End to end encryption
