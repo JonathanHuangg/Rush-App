@@ -16,13 +16,13 @@ class TextAndCheckBoxState extends State<TextAndCheckBox> {
 
     // If the states are in any of the interacted states, change color to blue
     // otherwise, keep as red
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
+    Color getColor(Set<WidgetState> states) {
+      const Set<WidgetState> interactiveStates = <WidgetState>{
+        WidgetState.pressed,
+        WidgetState.hovered,
       };
 
-      if (states.contains(MaterialState.pressed)) {
+      if (states.contains(WidgetState.pressed)) {
         return Colors.blue;
       }
       return Colors.red;
@@ -30,7 +30,7 @@ class TextAndCheckBoxState extends State<TextAndCheckBox> {
     
     return Checkbox( 
       checkColor: Colors.white, // color of checkmark
-      fillColor: MaterialStateProperty.resolveWith(getColor),
+      fillColor: WidgetStateProperty.resolveWith(getColor),
       value: isChecked,
       onChanged: (bool? value) {
         setState(() {

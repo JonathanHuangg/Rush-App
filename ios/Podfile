@@ -1,15 +1,28 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '12.0'
+platform :ios, '13.0'
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+flutter_application_path = File.expand_path('..', File.dirname(__FILE__))
+load File.join(flutter_application_path, 'ios', 'Flutter', 'podhelper.rb')
 
 target 'Runner' do
-  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
+  use_modular_headers!
 
-  # Pods for Runner
+  # Pods for Firebase
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+
+  # Install all Flutter plugins
+  install_all_flutter_pods(flutter_application_path)
 
   target 'RunnerTests' do
     inherit! :search_paths
-    # Pods for testing
   end
+end
 
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+  end
 end
