@@ -6,7 +6,7 @@ import 'package:rush_app/widgets/common/rusher_registration_widgets.dart';
 
 // Declare as mutable state
 class DynamicFormPage extends StatefulWidget {
-  const DynamicFormPage({Key? key}) : super(key: key);
+  const DynamicFormPage({super.key});
 
   @override
   DynamicFormPageState createState() => DynamicFormPageState();

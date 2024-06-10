@@ -6,7 +6,7 @@ class NavigationBar extends StatefulWidget {
   final int currentIndex;
   final List<NavigationBarItem> items;
 
-  NavigationBar({
+  const NavigationBar({super.key, 
     required this.onTabTapped,
     required this.currentIndex,
     required this.items,
