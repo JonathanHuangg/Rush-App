@@ -2,8 +2,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 // Iphone 15 simulator
-// xcrun simctl boot 60382070-7787-4574-A898-672D761082C3
-// flutter run -d 60382070-7787-4574-A898-672D761082C3
+//
+// flutter run -d 60382070-7787-4574-A898-672D761082C3 
 
 void main() {
   runApp(const MyApp());
