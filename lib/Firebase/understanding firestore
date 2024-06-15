@@ -18,7 +18,8 @@ NoSQL Databases - Collections and documents, key value pairs, graphs. Related da
 
 Key Components and Integration
 1) Firebase authentication
-- Use Firebase Authentication and Device ID to verify authentication
+- Use Firebase Authentication and Device ID to verify 
+- Users need to be authenticated because it allows people to use their own data
 - Role-Based Access: Help manage roles (unsure)
 
 2) Firestore Database

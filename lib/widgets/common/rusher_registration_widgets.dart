@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 export 'package:rush_app/widgets/common/rusher_registration_widgets.dart';
 
-TextFormField getTextWidget(int index, List<DynamicModel> formsList) {
+TextFormField getTextWidget(int index, List<DynamicModel> formsList, Map<String, TextEditingController> controllers) {
+  String controlName = formsList[index].controlName;
   return TextFormField(
+    controller: controllers[controlName],
     decoration: InputDecoration(
-      helperText: formsList[index].controlName,
-      labelText: formsList[index].controlName,
+      labelText: controlName,
       border: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(14.0)),
       ),

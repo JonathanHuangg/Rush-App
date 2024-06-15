@@ -2,33 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:rush_app/Firebase/firebase_emulator.dart';
 import 'package:rush_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:rush_app/screens/common/welcome_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/common/rusher_registration.dart';
 
-// use 'firebase emulators:start' to start
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp( 
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  useEmulator();
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp( 
-      title: 'demo app',
-      theme: ThemeData( 
-        primarySwatch: Colors.green,
-      ),
-
-      home: const DynamicFormPage()
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
     );
+    // Uncomment this if you want to use the Firebase emulator
+    // useEmulator();
+
+    // this checks if the app is opened for the first time
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+
+    if (isFirstTime) {
+      await prefs.setBool('isFirstTime', false);
+    }
+
+    runApp(MyApp(isFirstTime: isFirstTime));
+  } catch (e) {
+    // Handle initialization error
+    runApp(MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Text("Failed to initialize Firebase: $e"),
+        ),
+      ),
+    ));
   }
 }
 
+class MyApp extends StatelessWidget {
+  final bool isFirstTime;
+  const MyApp({Key? key, required this.isFirstTime}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'demo app',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: isFirstTime ? WelcomePage() : const DynamicFormPage(),
+    );
+  }
+}
