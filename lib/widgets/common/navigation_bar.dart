@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 // container that manages state of child widget: BottomNavigationBar
 class NavigationBar extends StatefulWidget {
   final Function(int) onTabTapped;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rush_app/Firebase/firestore_service.dart';
 import 'package:rush_app/widgets/common/rusher_registration_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rush_app/screens/common/rusher_main.dart';
 
 
 // Referenced from https://www.syncfusion.com/blogs/post/dynamic-forms-in-flutter
@@ -60,12 +61,11 @@ class DynamicFormPageState extends State<DynamicFormPage> {
     try { 
       UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
       
-      if (userCredential != null) {
+      if (userCredential.user != null) {
         setState(() { 
         _currentUser = userCredential.user;
         _uid = _currentUser?.uid;
         });
-        _show("Signed in successfully with UID: $_uid");
       } else {
         _show("Sign-in failed: userCredential.user is null");
       }
@@ -97,7 +97,9 @@ class DynamicFormPageState extends State<DynamicFormPage> {
         await _authService.createUser(_uid!, name, fraternity, phrase, isRushChair);
 
         // Fetch user data to show in the popup
+        /*
         DocumentSnapshot userDoc = await _authService.getUser(_uid!);
+        
         if (userDoc.exists) {
           var data = userDoc.data() as Map<String, dynamic>;
           _showUserInfo(
@@ -111,6 +113,7 @@ class DynamicFormPageState extends State<DynamicFormPage> {
         } else {
           _showSignInFailedDialogue("panic");
         }
+        */
       } catch(e) { 
         _show("Error: ${e.toString()}");
       } 
@@ -186,36 +189,7 @@ class DynamicFormPageState extends State<DynamicFormPage> {
     });
   }
 
-  void _showUserInfo(String name, String fraternity, Timestamp createdAt, String phrase, bool isRushChair, bool authorized) { 
-    showDialog( 
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog( 
-          title: const Text("User Information"), 
-          content: Column( 
-            crossAxisAlignment: CrossAxisAlignment.start, 
-            mainAxisSize: MainAxisSize.min, 
-            children: [ 
-              Text("Name: $name"),
-              Text("Fraternity: $fraternity"),
-              Text("Created At: ${createdAt.toDate()}"),
-              Text("Phrase: $phrase"),
-              Text("Is Rush Chair: ${isRushChair ? 'Yes' : 'No'}"),
-              Text("Authorized: ${authorized ? 'Yes' : 'No'}"),
-            ],
-          ),
-
-          actions: <Widget>[ 
-            TextButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-        )],
-        );
-      }
-    );
-  }
+  
   void setUpForms() {
     formsList.add(DynamicModel("Greek Affiliation", FormType.dropdown, items: frats));
 
@@ -283,6 +257,11 @@ class DynamicFormPageState extends State<DynamicFormPage> {
               onPressed: () {
                 if (_formKey.currentState?.validate() ?? false) {
                   _handleSignIn();
+
+                  Navigator.push( 
+                    context, 
+                    MaterialPageRoute(builder: (context) => const RusherMainPage()),
+                  );
                 }
               },
               child: const Text('Confirm Registration')
@@ -292,4 +271,39 @@ class DynamicFormPageState extends State<DynamicFormPage> {
       ),
     );
   }
+
+  /*
+  This is for debugging purposes
+  */
+  void _showUserInfo(String name, String fraternity, Timestamp createdAt, String phrase, bool isRushChair, bool authorized) { 
+    showDialog( 
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog( 
+          title: const Text("User Information"), 
+          content: Column( 
+            crossAxisAlignment: CrossAxisAlignment.start, 
+            mainAxisSize: MainAxisSize.min, 
+            children: [ 
+              Text("Name: $name"),
+              Text("Fraternity: $fraternity"),
+              Text("Created At: ${createdAt.toDate()}"),
+              Text("Phrase: $phrase"),
+              Text("Is Rush Chair: ${isRushChair ? 'Yes' : 'No'}"),
+              Text("Authorized: ${authorized ? 'Yes' : 'No'}"),
+            ],
+          ),
+
+          actions: <Widget>[ 
+            TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+        )],
+        );
+      }
+    );
+  }
 }
+

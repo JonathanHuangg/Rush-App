@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rush_app/Firebase/firebase_emulator.dart';
 import 'package:rush_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rush_app/screens/common/welcome_page.dart';
@@ -38,7 +37,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final bool isFirstTime;
-  const MyApp({Key? key, required this.isFirstTime}) : super(key: key);
+  const MyApp({super.key, required this.isFirstTime});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: isFirstTime ? WelcomePage() : const DynamicFormPage(),
+      home: isFirstTime ? const WelcomePage() : const DynamicFormPage(),
     );
   }
 }
