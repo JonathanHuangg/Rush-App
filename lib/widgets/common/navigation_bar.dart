@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 // container that manages state of child widget: BottomNavigationBar
-class NavigationBar extends StatefulWidget {
+class CustomNavigationBar extends StatefulWidget {
   final Function(int) onTabTapped;
   final int currentIndex;
   final List<NavigationBarItem> items;
 
-  const NavigationBar({super.key, 
+  const CustomNavigationBar({super.key, 
     required this.onTabTapped,
     required this.currentIndex,
     required this.items,
@@ -16,7 +16,7 @@ class NavigationBar extends StatefulWidget {
 
 }
 
-class NavigationBarState extends State<NavigationBar> {
+class NavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar( 

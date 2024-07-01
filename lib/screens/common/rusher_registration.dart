@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rush_app/Firebase/firestore_service.dart';
+import 'package:rush_app/screens/common/MainScreen.dart';
 import 'package:rush_app/widgets/common/rusher_registration_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rush_app/screens/common/rusher_main.dart';
-
 
 // Referenced from https://www.syncfusion.com/blogs/post/dynamic-forms-in-flutter
 
@@ -258,10 +257,10 @@ class DynamicFormPageState extends State<DynamicFormPage> {
                 if (_formKey.currentState?.validate() ?? false) {
                   _handleSignIn();
 
-                  Navigator.push( 
-                    context, 
-                    MaterialPageRoute(builder: (context) => const RusherMainPage()),
-                  );
+                  Navigator.pushReplacement(context, 
+                  MaterialPageRoute(
+                    builder: (context) => const MainScreen(), 
+                  ));
                 }
               },
               child: const Text('Confirm Registration')
