@@ -23,7 +23,7 @@ class MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_selectedIndex == 0 ? "Home" : "My Votes"),
+        title: Text(_selectedIndex == 0 ? "PNM List" : "My Votes"),
       ),
       body: IndexedStack(
         index: _selectedIndex, 
