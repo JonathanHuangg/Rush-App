@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:rush_app/widgets/common/detail_page.dart';
 class HomePageWidget extends StatefulWidget {
   @override 
   HomePageWidgetState createState() => HomePageWidgetState();
@@ -53,8 +53,18 @@ class HomePageWidgetState extends State<HomePageWidget> {
             child: ListView.builder( 
               itemCount: _filteredData.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_filteredData[index])
+                return InkWell(
+                  onTap: () { 
+                    Navigator.push( 
+                      context, 
+                      MaterialPageRoute( 
+                        builder: (context) => DetailPage(name: _filteredData[index])
+                      )
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(_filteredData[index])
+                  )
                 );
               }
             )
